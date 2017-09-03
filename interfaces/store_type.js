@@ -11,7 +11,6 @@ class Store {
         bind: context,
         key: key
       }
-      const keys = {dataKeys: {}, operatorKeys: {}}
       this.dataKeys = Object.keys(context.state).reduce((dataKeys, key) => mergeObjects(dataKeys, setObject(key, key)), {})
       this.operatorKeys = {}
       privateDefaults.data = mergeObjects(privateDefaults.data, context.state)
