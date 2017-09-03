@@ -1,4 +1,3 @@
-import {privates} from '../managers/private_states'
 import {operatorStore} from '../managers/global_stores'
 import {execute, setArgs, accessPrivates, setPrivates, mergeObjects, setObject} from './helper_actions'
 
@@ -13,8 +12,8 @@ const StatefulActions =  {
   setState(stateful_type, data){
     const state = accessPrivates(stateful_type)
     if(data){
-      const nextState = mergeObjects(state.data, data, 'data')
-      setPrivates(stateful_type, mergeObjects(state, nextState))
+      const nextData = mergeObjects(state.data, data, 'data')
+      setPrivates(stateful_type, mergeObjects(state, nextData))
     }
     this.executeDispatch(state)
     return this
@@ -24,8 +23,8 @@ const StatefulActions =  {
   },
   setOperator(stateful_type, func){
     const state = accessPrivates(stateful_type)
-    const newOperator = setObject(func.name, func)
-    setPrivates(stateful_type, mergeObjects(state, setObject('operator', newOperator)))
+    const newOperator = mergeObjects(state['operator'], setObject(func.name, func), 'operator')
+    setPrivates(stateful_type, mergeObjects(state, newOperator))
     stateful_type.operatorKeys = mergeObjects(stateful_type.operatorKeys, newOperator)
     operatorStore[state.key] = newOperator
     this.executeDispatch(state)
@@ -36,14 +35,9 @@ const StatefulActions =  {
     return this
   },
   executeTransform(stateful_type, func, args){
-    const result = execute(stateful_type, func, setArgs(stateful_type, args))
-    this.setState(result)
-    return this
-  },
-  executeLambda(stateful_type, func, args){
     const key = args[0]
-    const data = setObject(key, execute(stateful_type, func, args))
-    this.setState(stateful_type, data)
+    const result = execute(stateful_type, func, setArgs(stateful_type, args))
+    this.setState(stateful_type, setObject(key, result))
     return this
   },
   executeMerge(stateful_type, state){
