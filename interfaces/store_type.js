@@ -26,8 +26,8 @@ class Store {
     actions.setState(this, data)
     return this
   }
-  provide (func) {
-    actions.setOperator(this, func)
+  provide (...funcs) {
+    funcs.forEach(func => actions.setOperator(this, func))
     return this
   }
   transform (func, ...args) {
