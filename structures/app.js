@@ -3,14 +3,13 @@ import {initApp, getStore, readyStore, deleteStore, defaultStore, mapToProps} fr
 const app = {
   items: {},
   create (key, context) {
-    console.log("First",context)
     return initApp(this, key, context)
   },
   load (key) {
     return getStore(this, key)
   },
   remove (key) {
-    this.items.instance = deleteStore(this, key)
+    return deleteStore(this, key)
   },
   describe (key) {
     console.log(key.toUpperCase())

@@ -1,7 +1,7 @@
 {
   "name": "delta",
   "version": "0.3.0",
-  "description": "application state manager using functions only",
+  "description": "User friendly universal/local state manager",
   "main": "index.js",
   "scripts": {
     "test": "npm test"

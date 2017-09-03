@@ -1,24 +1,21 @@
 import {StatefulActions as actions} from '../actions/stateful_type_actions'
 import {AsyncActions as asyncx} from '../actions/async_actions'
-import {privates} from '../managers/private_states'
+import {setPrivates, setObject, mergeObjects} from '../actions/helper_actions'
 
 class Store {
   constructor (context, key, isDefault) {
     if (context) {
-      const defaults = {
+      const privateDefaults = {
         data: {},
         operator: {},
         bind: context,
         key: key
       }
       const keys = {dataKeys: {}, operatorKeys: {}}
-      this.dataKeys = {}
+      this.dataKeys = Object.keys(context.state).reduce((dataKeys, key) => mergeObjects(dataKeys, setObject(key, key)), {})
       this.operatorKeys = {}
-      for (const prop in context.state) {
-        defaults.data[prop] = context.state[prop]
-        this.dataKeys[prop] = prop
-      }
-      privates.set(this, defaults)
+      privateDefaults.data = mergeObjects(privateDefaults.data, context.state)
+      setPrivates(this, privateDefaults)
     }
     this.default = isDefault
   }
@@ -26,7 +23,6 @@ class Store {
     return actions.getState(this, prop)
   }
   set (data) {
-    console.log("DATA!",data)
     actions.setState(this, data)
     return this
   }
@@ -34,9 +30,9 @@ class Store {
     actions.setOperator(this, func)
     return this
   }
-  transform (key, args) {
-    if(key && args){
-      actions.executeTransform(this, key, args)
+  transform (func, args) {
+    if(func && args){
+      actions.executeTransform(this, func, args)
     }
     return this
   }
