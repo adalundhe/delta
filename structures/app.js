@@ -21,8 +21,8 @@ const app = {
   default (key) {
     return defaultStore(this, key)
   },
-  map (key, props) {
-    return mapToProps(this, key, props)
+  map (key, context) {
+    return mapToProps(this, key, context)
   }
 }
 

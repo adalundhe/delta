@@ -30,7 +30,7 @@ class Store {
     actions.setOperator(this, func)
     return this
   }
-  transform (func,...args) {
+  transform (func, ...args) {
     if(func && args){
       actions.executeTransform(this, func, args)
     }

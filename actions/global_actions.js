@@ -32,9 +32,9 @@ const defaultStore = (key) => {
   return Store.stateful(key,{},true)[key]
 }
 
-const mapToProps = (app, key, props) => {
+const mapToProps = (app, key, context) => {
   if(app.ready(key)){
-    return {...props, ...app.items.instance[key].get()}
+    return {...context.props, ...app.items.instance[key].get()}
   }
   return {}
 }

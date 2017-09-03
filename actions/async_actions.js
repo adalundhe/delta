@@ -1,5 +1,5 @@
 import {StatefulActions} from './stateful_type_actions'
-import {execute} from './helper_actions'
+import {execute, setArgs} from './helper_actions'
 
 
 const AsyncActions = {
@@ -11,7 +11,7 @@ const AsyncActions = {
     this.func = func
     this.args = args
     const wait = (stateful_type = this.stateful_type, func = this.func, args = this.args) => {
-      if(execute(stateful_type, func, args)){
+      if(execute(stateful_type, func, setArgs(stateful_type, args))){
         StatefulActions.setState(stateful_type, StatefulActions.getState(stateful_type))
         cb(stateful_type)
       }
