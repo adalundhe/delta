@@ -1,0 +1,19 @@
+{
+  "name": "delta",
+  "version": "0.3.0",
+  "description": "application state manager using functions only",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "delta",
+    "state",
+    "package",
+    "manager",
+    "functions",
+    "react"
+  ],
+  "author": "Sean Corbett",
+  "license": "ISC"
+}
