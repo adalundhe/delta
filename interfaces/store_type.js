@@ -46,6 +46,10 @@ class Store {
     asyncx.asyncWait(this, func, args, cb)
     return this
   }
+  series(funcs, args){
+    actions.executeSeries(this, funcs, args)
+    return this
+  }
 }
 
 export {Store}

@@ -1,5 +1,5 @@
 import {operatorStore} from '../managers/global_stores'
-import {execute, setArgs, accessPrivates, setPrivates, mergeObjects, setObject} from './helper_actions'
+import {execute, setArgs, accessPrivates, setPrivates, mergeObjects, setObject, executeAll} from './helper_actions'
 
 const StatefulActions =  {
   getState(stateful_type, prop){
@@ -12,8 +12,7 @@ const StatefulActions =  {
   setState(stateful_type, data){
     const state = accessPrivates(stateful_type)
     if(data){
-      const nextData = mergeObjects(state.data, data, 'data')
-      setPrivates(stateful_type, mergeObjects(state, nextData))
+      setPrivates(stateful_type, mergeObjects(state, mergeObjects(state.data, data, 'data')))
     }
     this.executeDispatch(state)
     return this
@@ -32,6 +31,13 @@ const StatefulActions =  {
   },
   executeDispatch(state){
     state.bind.forceUpdate()
+    return this
+  },
+  executeSeries(stateful_type, funcs, args){
+    const data = setArgs(stateful_type, args)
+    const loadedFuncs = funcs.map((func) => this.getOperator(stateful_type, func))
+    const result = loadedFuncs.reduce((data, func) => func(data), data[0])
+    this.setState(stateful_type, setObject(args, result))
     return this
   },
   executeTransform(stateful_type, func, args){

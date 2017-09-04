@@ -2,8 +2,8 @@ import {StatefulActions} from './stateful_type_actions'
 import {privates} from '../managers/private_states'
 
 const setArgs = (stateful_type, args) => {
-  const key = args[0]
-  return [StatefulActions.getState(stateful_type, key), ...args.slice(1)]
+  const key = typeof args === 'array' ? args[0] : args
+  return (typeof args === 'array' && args.length > 1) ? [StatefulActions.getState(stateful_type, key), ...args.slice(1)] : [StatefulActions.getState(stateful_type, key)]
 }
 
 const execute = (stateful_type, func, args) => {
