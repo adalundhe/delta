@@ -2,13 +2,12 @@ import {StatefulActions} from './stateful_type_actions'
 import {privates} from '../managers/private_states'
 
 const setArgs = (stateful_type, args) => {
-  const key = typeof args === 'array' ? args[0] : args
-  return (typeof args === 'array' && args.length > 1) ? [StatefulActions.getState(stateful_type, key), ...args.slice(1)] : [StatefulActions.getState(stateful_type, key)]
+  return Array.isArray(args) ? args.map((arg) => typeof arg === 'string' ? StatefulActions.getState(stateful_type, arg) : arg) : args
 }
 
 const execute = (stateful_type, func, args) => {
   if(typeof func === 'string'){
-    return StatefulActions.getOperator(stateful_type, func).apply(stateful_type, args)
+    return StatefulActions.getOperator(stateful_type, func).apply(stateful_type, setArgs(stateful_type, args))
   }
   return func.apply(stateful_type, args)
 }
@@ -16,6 +15,10 @@ const execute = (stateful_type, func, args) => {
 const accessPrivates = (stateful_type) => privates.get(stateful_type)
 
 const setPrivates = (stateful_type, nextState) => privates.set(stateful_type, nextState)
+
+const createAndSet = (stateful_type, key, data) => StatefulActions.setState(stateful_type, setObject(key, data))
+
+const mergeAndSet = (stateful_type, toObject, fromObject, optKey) => privates.set(stateful_type, mergeObjects(toObject, fromObject, optKey))
 
 const setObject = (key, data, optKey) => {
   const objectOut = {}
@@ -28,12 +31,12 @@ const setObject = (key, data, optKey) => {
   return container
 }
 
-const mergeObjects = (fromObject, toObject, optKey) => {
-  const merged = {...fromObject, ...toObject}
+const mergeObjects = (toObject, fromObject, optKey) => {
+  const merged = {...toObject, ...fromObject}
   if(!optKey){
-    return {...fromObject, ...toObject}
+    return {...toObject, ...fromObject}
   }
   return setObject(optKey, merged)
 }
 
-export {setArgs, execute, accessPrivates, setPrivates, mergeObjects, setObject}
+export {setArgs, execute, accessPrivates, setPrivates, mergeObjects, setObject, createAndSet, mergeAndSet}

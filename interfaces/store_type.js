@@ -50,6 +50,18 @@ class Store {
     actions.executeSeries(this, funcs, args)
     return this
   }
+  sequence(funcs, args){
+    actions.executeSequence(this, funcs, args)
+    return this
+  }
+  norm(func, args){
+    actions.executeNorm(this, func, args)
+    return this
+  }
+  run(...sequence){
+    actions.executeRun(this, sequence)
+    return this
+  }
 }
 
 export {Store}
