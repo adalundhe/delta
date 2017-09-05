@@ -1,5 +1,5 @@
 import {operatorStore} from '../managers/global_stores'
-import {execute, setArgs, accessPrivates, mergeObjects,
+import {execute, setArgs, accessPrivates, mergeObjects, findChild,
         setObject, createAndSet, mergeAndSet} from './helper_actions'
 
 const StatefulActions =  {
@@ -12,10 +12,22 @@ const StatefulActions =  {
   },
   setState(stateful_type, data){
     const state = accessPrivates(stateful_type)
+
     if(data){
+      const dataKey = Object.keys(data)[0]
+
       mergeAndSet(stateful_type, state, mergeObjects(state.data, data, 'data'))
+      if(dataKey in Object.keys(state.bind.state)){
+        this.executeDispatch(state, false)
+        return this
+      }
+
+      const childState = findChild(dataKey, state)
+      this.executeDispatch(childState, true)
+      return this
     }
-    this.executeDispatch(state)
+
+    this.executeDispatch(state, false)
     return this
   },
   getOperator(stateful_type, key){
@@ -25,18 +37,24 @@ const StatefulActions =  {
     const state = accessPrivates(stateful_type)
     const newOperator = mergeObjects(state['operator'], setObject(func.name, func), 'operator')
     mergeAndSet(stateful_type, state, newOperator)
-    stateful_type.operatorKeys = mergeObjects(stateful_type.operatorKeys, newOperator)
+    stateful_type.operatorKeys[func.name] = func.name
     operatorStore[state.key] = newOperator
     this.executeDispatch(state)
     return this
   },
-  executeDispatch(state){
+  executeDispatch(state, isChild){
+    if(isChild){
+      state.forceUpdate()
+      return this
+    }
     state.bind.forceUpdate()
     return this
   },
   executeMerge(stateful_type, state){
     const currentState = accessPrivates(stateful_type)
-    const mergeState = mergeObjects(currentState.data, state.state, 'data')
+    const mergeBind = mergeObjects(currentState.children, setObject(state.constructor.name, state), 'children')
+    const mergeData = mergeObjects(currentState.data, state.state, 'data')
+    const mergeState = mergeObjects(mergeBind, mergeData)
     mergeAndSet(stateful_type, currentState, mergeState)
     return this
   },

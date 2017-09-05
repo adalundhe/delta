@@ -12,6 +12,16 @@ const execute = (stateful_type, func, args) => {
   return func.apply(stateful_type, args)
 }
 
+const findChild = (dataKey, state) => {
+  for(const child in state.children){
+    if(state.children[child].state[dataKey] !== undefined){
+      return state.children[child]
+    }
+  }
+  const notFound = new Error('Data not found in main state or child states. Did you forget to merge state?')
+  throw notFound
+}
+
 const accessPrivates = (stateful_type) => privates.get(stateful_type)
 
 const setPrivates = (stateful_type, nextState) => privates.set(stateful_type, nextState)
@@ -39,4 +49,4 @@ const mergeObjects = (toObject, fromObject, optKey) => {
   return setObject(optKey, merged)
 }
 
-export {setArgs, execute, accessPrivates, setPrivates, mergeObjects, setObject, createAndSet, mergeAndSet}
+export {setArgs, execute, accessPrivates, setPrivates, mergeObjects, setObject, createAndSet, mergeAndSet, findChild}

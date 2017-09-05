@@ -18,10 +18,17 @@ const app = {
   ready (key){
     return readyStore(this, key)
   },
-  default (key) {
-    return defaultStore(this, key)
+  default () {
+    if(!this.items.instance){
+      return defaultStore(this, 'default')
+    }
+    return this.load('default')
   },
   map (key, context) {
+    if(typeof key !== 'string'){
+      const context = key
+      return mapToProps(this, 'default', context)
+    }
     return mapToProps(this, key, context)
   }
 }
