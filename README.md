@@ -124,6 +124,7 @@ The second argument must likewise be a string matching the variable name matchin
 
 There are several additional methods through which Operator(s) may generate new state given existing state. These include:
 
+<br/>
 
 * __series__:
 
@@ -134,6 +135,7 @@ There are several additional methods through which Operator(s) may generate new 
   * Second Argument: A single string-type reference to a single state item
   * Returns: The aggregate result of each operator's execution upon the given state item.
 
+<br/>
 
 * __sequence__:
 
@@ -144,6 +146,7 @@ There are several additional methods through which Operator(s) may generate new 
   * Second Argument: An array of equal size to the first argument, containing *n* string-type references to state items.
   * Returns: The execution of the ith Operator upon the ith state item.
 
+<br/>
 
 * __norm__:
 
@@ -154,6 +157,7 @@ There are several additional methods through which Operator(s) may generate new 
   * Second Argument: An array of *n* string-type references to state items.
   * Returns: The execution of the provided operator upon each provided state item.
 
+<br/>
 
 * __run__:
 
@@ -172,9 +176,9 @@ delta's execution of re-rendering (post set or transform) is synchronous and opp
 
 
 ```
-  app.load('myStore').set('someOtherStore') // Will not re-render starting from component from which 'myStore' Store was instantiated.
 ```
 
+app.load('myStore').set('someOtherStore') // Will not re-render starting from component from which 'myStore' Store was instantiated.
 Note that any reference passed this way need not match the casing. In order to trigger re-rendering this way, the smart component from which we wish to trigger re-rendering *must* have been merged with the current Store which we are accessing.
 
 If no reference string is provided, a re-render can still be triggered, however delta will then default re-rendering propagation to the parent component from which the Store was initialized. This can be done as below:
@@ -205,7 +209,7 @@ delta is flexible in that it allows for either single-store or localized store a
 
 ### asynchronous operations and __delta__
 
-While delta enforces all state changes synchronously, due to the architecture of modern web applications data called from severs (or manipulated by outside libraries) is often available asynchronously. As a basic means of dealing with this reality, delta Stores are provided a single asynchronous method called `.async()`. Note that this method should *only* be used sparingly, in instances where no outside means of enforcing data hydration is available. The `.ascyn()` method takes the following argument:
+While delta enforces all state changes synchronously, due to the architecture of modern web applications data called from severs (or manipulated by outside libraries) is often available asynchronously. As a basic means of dealing with this reality, delta Stores are provided a single asynchronous method called `.async()`. Note that this method should *only* be used sparingly, in instances where no outside means of enforcing data hydration is available. The `.async()` method takes the following argument:
 
 * First Argument: String-type reference to a provided transform or anonymous function (i.e. as with the first argument of a call to `.transform()`) that *must* return __true__ or __false__
 * Second Argument: Array of references to the data required by the function passed as the first argument. Note that these may be arbitrary and need not involve references to state
@@ -230,6 +234,7 @@ to pass *any* call to `.async()` a function or Operator that *will eventually re
 
 Note that, in addition to the methods provided to a Store, an instance of delta also has access to a few rudimentary methods. These include:
 
+<br/>
 
  * __create__:
 
@@ -242,6 +247,7 @@ Note that, in addition to the methods provided to a Store, an instance of delta 
     * Executes Re-Render: Yes
     * Note: If a Store is already referenced under the provided key, `.create()` instead executes a `.merge()`
 
+<br/>
 
 * __load__:
 
@@ -251,6 +257,7 @@ Note that, in addition to the methods provided to a Store, an instance of delta 
     * Executes Re-Render: No
     * Note: If no reference string is provided or the Store is determined to be unavailable, `.load()` will return the app `default()` Store instance
 
+<br/>
 
 * __ready__:
 
@@ -259,6 +266,7 @@ Note that, in addition to the methods provided to a Store, an instance of delta 
     * Returns: A boolean (__true__ or __false__) indicating whether the Store referenced by the argument string key is available or has been created.
     * Executes Re-Render: No
 
+<br/>
 
 * __default__:
 
@@ -267,6 +275,7 @@ Note that, in addition to the methods provided to a Store, an instance of delta 
     * Returns: A dummy-instance of a Store data-type. Note that this instance has *no* access to re-rendering, state setting, transforms, etc.
     * Executes Re-Render: No
 
+<br/>
 
 * __map__:
 
