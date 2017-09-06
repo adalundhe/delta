@@ -1,5 +1,5 @@
 {
-  "name": "delta",
+  "name": "delta-state",
   "version": "0.3.0",
   "description": "User friendly universal/local state manager",
   "main": "index.js",
