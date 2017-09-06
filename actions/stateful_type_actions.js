@@ -27,7 +27,7 @@ const StatefulActions =  {
       const dataKey = Object.keys(data)[0]
 
       mergeAndSet(stateful_type, state, mergeObjects(state.data, data, 'data'))
-      if(dataKey in Object.keys(state.bind.state)){
+      if(dataKey in state.bind.state){
         this.executeDispatch(state, false)
         return this
       }

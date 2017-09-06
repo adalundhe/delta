@@ -2,11 +2,24 @@ import {StatefulActions} from './stateful_type_actions'
 import {privates} from '../managers/private_states'
 
 const setArgs = (stateful_type, args) => {
-  return Array.isArray(args) ? args.map((arg) => typeof arg === 'string' ? StatefulActions.getState(stateful_type, arg) : arg) : args
+  if(Array.isArray(args)){
+    const newArgs = args.map((arg) => {
+      if(typeof arg === 'string'){
+        const getData = StatefulActions.getState(stateful_type, arg)
+        return getData ? getData : arg
+      } else{
+        return arg
+      }
+    })
+
+    return newArgs
+  }
+  else{
+    return args
+  }
 }
 
 const execute = (stateful_type, func, args) => {
-  console.log("ARGS", setArgs(stateful_type, args))
   if(typeof func === 'string'){
     return StatefulActions.getOperator(stateful_type, func).apply(stateful_type, setArgs(stateful_type, args))
   }
