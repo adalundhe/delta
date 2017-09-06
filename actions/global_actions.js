@@ -35,7 +35,10 @@ const defaultStore = (app, key) => {
 
 const mapToProps = (app, key, context) => {
   if(app.ready(key)){
-    return {...context.props, ...app.items.instance[key].get()}
+    if(context.props){
+      return {...context.props, ...app.items.instance[key].get()}
+    }
+    return {...context, ...app.items.instance[key].get()}
   }
   return {}
 }

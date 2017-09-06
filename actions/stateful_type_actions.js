@@ -1,6 +1,6 @@
 import {operatorStore} from '../managers/global_stores'
-import {execute, setArgs, accessPrivates, mergeObjects, findChild,
-        setObject, createAndSet, mergeAndSet} from './helper_actions'
+import {execute, setArgs, accessPrivates, mergeObjects, findChildByData,
+        setObject, createAndSet, mergeAndSet, findChild} from './helper_actions'
 
 const StatefulActions =  {
   getState(stateful_type, prop){
@@ -13,7 +13,17 @@ const StatefulActions =  {
   setState(stateful_type, data){
     const state = accessPrivates(stateful_type)
 
-    if(data){
+    if(!data || state.bind.constructor.name.toLowerCase() === data){
+      this.executeDispatch(state, false)
+      return this
+    }
+    else if (data && typeof data === 'string') {
+
+      const childState = findChild(data, state)
+      this.executeDispatch(childState, true)
+    }
+
+    if(data && typeof data === 'object'){
       const dataKey = Object.keys(data)[0]
 
       mergeAndSet(stateful_type, state, mergeObjects(state.data, data, 'data'))
@@ -22,13 +32,10 @@ const StatefulActions =  {
         return this
       }
 
-      const childState = findChild(dataKey, state)
+      const childState = findChildByData(dataKey, state)
       this.executeDispatch(childState, true)
       return this
     }
-
-    this.executeDispatch(state, false)
-    return this
   },
   getOperator(stateful_type, key){
     return accessPrivates(stateful_type)['operator'][key]

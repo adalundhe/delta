@@ -1,6 +1,6 @@
 import {StatefulActions as actions} from '../actions/stateful_type_actions'
 import {AsyncActions as asyncx} from '../actions/async_actions'
-import {setPrivates, setObject, mergeObjects, accessPrivates} from '../actions/helper_actions'
+import {setPrivates, setObject, mergeObjects} from '../actions/helper_actions'
 
 class Store {
   constructor (context, key, isDefault) {

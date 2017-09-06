@@ -6,13 +6,26 @@ const setArgs = (stateful_type, args) => {
 }
 
 const execute = (stateful_type, func, args) => {
+  console.log("ARGS", setArgs(stateful_type, args))
   if(typeof func === 'string'){
     return StatefulActions.getOperator(stateful_type, func).apply(stateful_type, setArgs(stateful_type, args))
   }
   return func.apply(stateful_type, args)
 }
 
-const findChild = (dataKey, state) => {
+const findChild = (key, state) => {
+  key = key.toLowerCase()
+  for(const child in state.children){
+    if(state.children[child].constructor.name.toLowerCase() === key){
+      return state.children[child]
+    }
+  }
+
+  const notFound = new Error('Data not found in main state or child states. Did you forget to merge state?')
+  throw notFound
+}
+
+const findChildByData = (dataKey, state) => {
   for(const child in state.children){
     if(state.children[child].state[dataKey] !== undefined){
       return state.children[child]
@@ -49,4 +62,4 @@ const mergeObjects = (toObject, fromObject, optKey) => {
   return setObject(optKey, merged)
 }
 
-export {setArgs, execute, accessPrivates, setPrivates, mergeObjects, setObject, createAndSet, mergeAndSet, findChild}
+export {setArgs, execute, accessPrivates, setPrivates, mergeObjects, setObject, createAndSet, mergeAndSet, findChildByData, findChild}
