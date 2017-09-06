@@ -37,7 +37,7 @@ manipulate data is called an *__Operator__*. Operators are simple, pure function
 
 <br/>
 
- ### the __delta__ *store*
+### the __delta__ *store*
 
  A *__Store__* represents an abstract data-type, a strict interface that provides predetermined methods of interaction and enforces indirect interaction with application state. For delta, a Store contains any React state data of the parent component from which it was instantiated and the data of any additional components to which you *merge* into the given store. All data is stored inside a simple, single-level object. However, only the parent component from which a Store is instantiated is considered a *parent*. Any other React components whose state is merged into an existing store is strictly treated as a *child* Store of the parent. This means that delta can be used to keep track and enforce some degree of localized re-rendering if the programmer so chooses. Note, however, that delta has no knowledge of the structure of your application beyond the initial component from which you instantiate the Store being the parent, and any subsequent merged components being children of that parent Store. This means that ad-hoc instantiation, merging, or re-rendering calls can quickly result in unexpected application behavior either through unwanted re-rendering or failing to re-render.
 
