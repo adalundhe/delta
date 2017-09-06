@@ -9,6 +9,16 @@ re-rendering.
 
 <br/>
 
+### installing __delta__
+
+You can install delta and save it to your package.json follows:
+
+`npm install --save delta`
+
+You can then import delta into your project as follows:
+
+`import {app} from 'delta'`
+
 ### about __delta__
 
 __delta__ is designed to mirror but otherwise exist separately from data you
@@ -284,3 +294,5 @@ Note that, in addition to the methods provided to a Store, an instance of delta 
     * Second Argument: The keyword __this__ for React smart components or normal component __props__ object, which must be provided within the class scope of the component in which the Store is being created.
     * Returns: A new object, containing the merged key-value pairings of the provided React component "props" object and the current Store data object.
     * Note: *__This__* is the means by which you should make Store state available for display and use within a React smart component's `render()` method or a normal component.
+
+<br/>
