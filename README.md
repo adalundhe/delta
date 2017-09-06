@@ -240,18 +240,18 @@ Note that, in addition to the methods provided to a Store, an instance of delta 
 
 * __load__:
 
- * `.load('storeName')`
- * Argument: The string containing the reference (key) for the Store which we wish to access.
- * Returns: The referenced instance of the initialized Store data-type, to be stored or otherwise used.
- * Executes Re-Render: No
- * Note: If no reference string is provided or the Store is determined to be unavailable, `.load()` will return the app `default()` Store instance
+  * `.load('storeName')`
+  * Argument: The string containing the reference (key) for the Store which we wish to access.
+  * Returns: The referenced instance of the initialized Store data-type, to be stored or otherwise used.
+  * Executes Re-Render: No
+  * Note: If no reference string is provided or the Store is determined to be unavailable, `.load()` will return the app `default()` Store instance
 
 * __ready__:
 
- * `.ready('storeName')`
- * Argument: The string containing the reference (key) for the Store which we wish to access.
- * Returns: A boolean (__true__ or __false__) indicating whether the Store referenced by the argument string key is available or has been created.
- * Executes Re-Render: No
+  * `.ready('storeName')`
+  * Argument: The string containing the reference (key) for the Store which we wish to access.
+  * Returns: A boolean (__true__ or __false__) indicating whether the Store referenced by the argument string key is available or has been created.
+  * Executes Re-Render: No
 
 * __default__:
 
