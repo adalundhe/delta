@@ -124,6 +124,7 @@ The second argument must likewise be a string matching the variable name matchin
 
 There are several additional methods through which Operator(s) may generate new state given existing state. These include:
 
+
 * __series__:
 
   * ```
@@ -143,6 +144,7 @@ There are several additional methods through which Operator(s) may generate new 
   * Second Argument: An array of equal size to the first argument, containing *n* string-type references to state items.
   * Returns: The execution of the ith Operator upon the ith state item.
 
+
 * __norm__:
 
   * ```
@@ -155,8 +157,7 @@ There are several additional methods through which Operator(s) may generate new 
 
 * __run__:
 
-  *
-    ```
+  * ```
     .run(['addY', 'counterOne', 2], ['addOne', 'counterTwo']) // Outputs: [ counterOne => 2, counterTwo => 1]
     ```
   * Arguments: *n* arrays of arguments provided the execution of *n* Operators.
@@ -200,6 +201,7 @@ delta is flexible in that it allows for either single-store or localized store a
 
  Note that you *must* execute a merge from a component that is *not* the component in which a given Store is instantiated. Upon execution of a merge, delta will map the passed component's initial state variable names and values as key-value pairs to the target Store's data object and then add the passed component as a child of the target Store. Executing a merge will also map references of all state items of the provided component to the dataKeys reference object of the target Store before finally executing a re-render propagating from component from which the target Store was initialized. Note then that any manipulation of state items originally owned by the passed component will trigger re-rendering from the passed component, *__not__* the target component (unless otherwise specified).
 
+<br/>
 
 ### asynchronous operations and __delta__
 
@@ -222,10 +224,12 @@ A valid call to `.async()` would then appear as below:
 Note that `.async()` will continue to asynchronously execute and check the first argument to see if that function/Operator returns true. It is then *critical*
 to pass *any* call to `.async()` a function or Operator that *will eventually return true*, else the asynchronous operation will continue to execute indefinitely.
 
+<br/>
 
 ### app methods and __delta__
 
 Note that, in addition to the methods provided to a Store, an instance of delta also has access to a few rudimentary methods. These include:
+
 
  * __create__:
 
@@ -238,32 +242,36 @@ Note that, in addition to the methods provided to a Store, an instance of delta 
   * Executes Re-Render: Yes
   * Note: If a Store is already referenced under the provided key, `.create()` instead executes a `.merge()`
 
+
 * __load__:
 
-  * `.load('storeName')`
-  * Argument: The string containing the reference (key) for the Store which we wish to access.
-  * Returns: The referenced instance of the initialized Store data-type, to be stored or otherwise used.
-  * Executes Re-Render: No
-  * Note: If no reference string is provided or the Store is determined to be unavailable, `.load()` will return the app `default()` Store instance
+    * `.load('storeName')`
+    * Argument: The string containing the reference (key) for the Store which we wish to access.
+    * Returns: The referenced instance of the initialized Store data-type, to be stored or otherwise used.
+    * Executes Re-Render: No
+    * Note: If no reference string is provided or the Store is determined to be unavailable, `.load()` will return the app `default()` Store instance
+
 
 * __ready__:
 
-  * `.ready('storeName')`
-  * Argument: The string containing the reference (key) for the Store which we wish to access.
-  * Returns: A boolean (__true__ or __false__) indicating whether the Store referenced by the argument string key is available or has been created.
-  * Executes Re-Render: No
+    * `.ready('storeName')`
+    * Argument: The string containing the reference (key) for the Store which we wish to access.
+    * Returns: A boolean (__true__ or __false__) indicating whether the Store referenced by the argument string key is available or has been created.
+    * Executes Re-Render: No
+
 
 * __default__:
 
-  * `.default()`
-  * Arguments: None
-  * Returns: A dummy-instance of a Store data-type. Note that this instance has *no* access to re-rendering, state setting, transforms, etc.
-  * Executes Re-Render: No
+    * `.default()`
+    * Arguments: None
+    * Returns: A dummy-instance of a Store data-type. Note that this instance has *no* access to re-rendering, state setting, transforms, etc.
+    * Executes Re-Render: No
+
 
 * __map__:
 
-  * `.map('storeName', this)`
-  * First Argument: The string containing the reference (key) for the Store which we wish to access.
-  * Second Argument: The keyword __this__ for React smart components or normal component __props__ object, which must be provided within the class scope of the component in which the Store is being created.
-  * Returns: A new object, containing the merged key-value pairings of the provided React component "props" object and the current Store data object.
-  * Note: *__This__* is the means by which you should make Store state available for display and use within a React smart component's `render()` method or a normal component.
+    * `.map('storeName', this)`
+    * First Argument: The string containing the reference (key) for the Store which we wish to access.
+    * Second Argument: The keyword __this__ for React smart components or normal component __props__ object, which must be provided within the class scope of the component in which the Store is being created.
+    * Returns: A new object, containing the merged key-value pairings of the provided React component "props" object and the current Store data object.
+    * Note: *__This__* is the means by which you should make Store state available for display and use within a React smart component's `render()` method or a normal component.
