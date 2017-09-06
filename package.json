@@ -1,6 +1,6 @@
 {
   "name": "delta-state",
-  "version": "0.3.2",
+  "version": "0.3.4",
   "description": "User friendly universal/local state manager",
   "main": "index.js",
   "scripts": {

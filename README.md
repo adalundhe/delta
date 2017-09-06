@@ -233,14 +233,14 @@ Note that, in addition to the methods provided to a Store, an instance of delta 
 
  * __create__:
 
-  * `.create('storeName', this)`
+    * `.create('storeName', this)`
 
-  * First Argument: The string containing the reference (key) under which the created store is to be referenced
-  * Second Argument: The keyword __this__, which must be provided within the class scope of the component in which the Store is being created.
-  * Does: Creates a store, mapping React state to delta state data object and creating references to said component for re-rendering purposes.
-  * Returns: The newly created instance of the initialized Store data-type, to be stored or otherwise used.
-  * Executes Re-Render: Yes
-  * Note: If a Store is already referenced under the provided key, `.create()` instead executes a `.merge()`
+    * First Argument: The string containing the reference (key) under which the created store is to be referenced
+    * Second Argument: The keyword __this__, which must be provided within the class scope of the component in which the Store is being created.
+    * Does: Creates a store, mapping React state to delta state data object and creating references to said component for re-rendering purposes.
+    * Returns: The newly created instance of the initialized Store data-type, to be stored or otherwise used.
+    * Executes Re-Render: Yes
+    * Note: If a Store is already referenced under the provided key, `.create()` instead executes a `.merge()`
 
 
 * __load__:
