@@ -126,7 +126,7 @@ There are several additional methods through which Operator(s) may generate new 
 
 * __series__:
 
-  * `.series(['addOne', 'addOne', 'lessOne'], 'counter') // Outputs cumulative total of all Operators' executions: counter => 1`
+  * ```.series(['addOne', 'addOne', 'lessOne'], 'counter') // Outputs cumulative total of all Operators' executions: counter => 1```
   * First Argument: An array of *n* string-type references to provided Operators
   * Second Argument: A single string-type reference to a single state item
   * Returns: The aggregate result of each operator's execution upon the given state item.
@@ -134,14 +134,14 @@ There are several additional methods through which Operator(s) may generate new 
 
 * __sequence__:
 
-  * `.sequence(['addOne', 'lessOne'], ['counterOne', 'counterTwo']) // Outputs: [ counterOne => 1, counterTwo => -1]`
+  * ```.sequence(['addOne', 'lessOne'], ['counterOne', 'counterTwo']) // Outputs: [ counterOne => 1, counterTwo => -1]```
   * First Argument: An array of *n* string-type references to provided Operators
   * Second Argument: An array of equal size to the first argument, containing *n* string-type references to state items.
   * Returns: The execution of the ith Operator upon the ith state item.
 
 * __norm__:
 
-  * `.norm('addOne', ['counterOne', 'counterTwo', 'counterThree']) // Outputs: [ counterOne => 1, counterTwo => 1, counterThree => 1]`
+  * ```.norm('addOne', ['counterOne', 'counterTwo', 'counterThree']) // Outputs: [ counterOne => 1, counterTwo => 1, counterThree => 1]```
   * First Argument: A string-type reference to a single Operator
   * Second Argument: An array of *n* string-type references to state items.
   * Returns: The execution of the provided operator upon each provided state item.
@@ -149,7 +149,7 @@ There are several additional methods through which Operator(s) may generate new 
 
 * __run__:
 
-  * `.run(['addY', 'counterOne', 2], ['addOne', 'counterTwo']) // Outputs: [ counterOne => 2, counterTwo => 1]`
+  * ```.run(['addY', 'counterOne', 2], ['addOne', 'counterTwo']) // Outputs: [ counterOne => 2, counterTwo => 1]```
   * Arguments: *n* arrays of arguments provided the execution of *n* Operators.
   * Returns: The execution of the ith operator upon the ith array of arguments.
   * Note: This is akin to executing *n* transforms in sequence. Each array of arguments must follow the same format as if you were executing a transform (i.e. first argument must be a string referencing an Operator available to the Store, second a string referencing a state item valid to the store, followed by the arbitrary arguments required by the Operator).
