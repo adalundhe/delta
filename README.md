@@ -2,7 +2,7 @@
 
 __delta__ is a universal state-store/action manager for React. Designed to be easy
 to use and minimally intrusive, delta embraces the immutable state concepts
-of state-management libraries like react while allowing for greater freedom in
+of state-management libraries like Redux while allowing for greater freedom in
 terms of the functions you provide to mutate data. It allows for single
 application store, multiple localized stores, global re-rendering and local
 re-rendering.
