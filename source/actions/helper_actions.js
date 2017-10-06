@@ -6,16 +6,16 @@ const setArgs = (stateful_type, args) => {
     const newArgs = args.map((arg) => {
       if(typeof arg === 'string'){
         const getData = StatefulActions.getState(stateful_type, arg)
-        return getData !== undefined  ? getData : arg
+        return getData ? getData : arg
       } else{
         return arg
       }
     })
+
     return newArgs
   }
   else{
-    const getData = StatefulActions.getState(stateful_type, args)
-    return getData ? getData : args
+    return args
   }
 }
 
