@@ -104,7 +104,7 @@ We may then change the value of our counter through the Store `.set()` method. L
  ```
   const addOne = (x) => x + 1
 
-  const lessOne = (x) => (x > 0) x - 1 : 0
+  const lessOne = (x) => (x > 0) ? x - 1 : 0
 
   app.load('myStore').provide(addOne, lessOne)
  ```
