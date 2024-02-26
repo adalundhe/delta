@@ -1,3 +1,5 @@
+![bundle size](https://deno.bundlejs.com/badge?q=delta-state,delta-state&treeshake=[*],[{+create,atom,useAtom,DerivedAtom,AtomStore}])
+
 # delta
 
 __delta__ is a universal state-store/action manager for React. Designed to be easy
